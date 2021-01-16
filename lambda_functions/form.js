@@ -23,11 +23,7 @@ const connectToDatabase = async (uri) => {
 
 const queryDatabase = async (db , hash) => {
 
-   if (hash) {
-      const surveys = await db.collection("surveys").find( {hash} ).toArray();
-   } else {
-      const surveys = await db.collection("surveys").find().toArray();      
-   }
+  const surveys = await db.collection("surveys").find( {hash} ).toArray();
 
   return {
      statusCode: 200,
