@@ -45,7 +45,7 @@ const queryDatabase = async (db , hash) => {
 //};
 
 const pushToDatabase = async (db, data, collection) => {
-    
+
     if (collection == "surveys") {
       const collect = {
             content: data.questions,
