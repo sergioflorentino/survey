@@ -4,9 +4,10 @@
 // function is triggered. For more full specs on it see
 // https://docs.aws.amazon.com/lambda/latest/dg/nodejs-handler.html
 module.exports.handler = async (event, context) => {
-   const unixTime = 'teste';
+   
+   const MONGODB_URI = process.env.MONGODB_URI;
    return {
      statusCode: 200,
-     body: `The Unix time is ${unixTime}`,
+     body: `MONGODB_URI is ${MONGODB_URI}`,
    };
  };
