@@ -22,8 +22,13 @@ const connectToDatabase = async (uri) => {
 };
 
 const queryDatabase = async (db , hash) => {
-  const surveys = await db.collection("surveys").find( {hash} ).toArray();
-  
+
+   if (hash) {
+      const surveys = await db.collection("surveys").find( {hash} ).toArray();
+   } else {
+      const surveys = await db.collection("surveys").find().toArray();      
+   }
+
   return {
      statusCode: 200,
      headers: {
@@ -32,6 +37,7 @@ const queryDatabase = async (db , hash) => {
      body: JSON.stringify(surveys),
    };
 };
+
   
 //module.exports.handler = async (event, context) => {
     // otherwise the connection will never complete, since
