@@ -75,8 +75,7 @@ module.exports.handler = async (event, context) => {
   
     switch (event.httpMethod) {
       case "GET":
-        return { statusCode: 400 };
-        //return queryDatabase(db);
+        return queryDatabase(db);
       case "POST":
         return pushToDatabase(db, JSON.parse(event.body), "surveys");
       default:
