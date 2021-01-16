@@ -66,6 +66,20 @@ const pushToDatabase = async (db, data, collection) => {
     }
 };
   
+const editDatabase = async (db, param) => {
+
+   if (param.updated) {
+     await db.collection("surveys").updateOne(
+       { hash: param.hash },
+       { $set: { "questions.$" : param.questions } }
+    )
+     return { statusCode: 201 };
+   } else {
+     return { statusCode: 422 };
+   }
+};
+
+
 module.exports.handler = async (event, context) => {
     // otherwise the connection will never complete, since
     // we keep the DB connection alive
