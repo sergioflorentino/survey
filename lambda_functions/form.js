@@ -89,13 +89,14 @@ module.exports.handler = async (event, context) => {
   
     const db = await connectToDatabase(MONGODB_URI);
     const hash = event.headers['hash'] ? event.headers.hash : '';
+    const collection = event.headers['collection'] ? event.headers.collection : '';
     const inputdata = event.headers['inputdata'] ? event.headers.inputdata : '';
   
     switch (event.httpMethod) {
       case "GET":
         return queryDatabase(db, hash);
       case "POST":
-        return pushToDatabase(db, JSON.parse(event.body));
+        return pushToDatabase(db, JSON.parse(event.body), collection);
       case "PUT":
         return editDatabase(db, inputdata);
       default:
