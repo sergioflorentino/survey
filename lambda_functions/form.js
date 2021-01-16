@@ -22,27 +22,27 @@ const connectToDatabase = async (uri) => {
 };
 
 const queryDatabase = async (db) => {
-    const surveys = await db.collection("surveys").find({}).toArray();
+  const surveys = await db.collection("surveys").find({}).toArray();
   
-    return {
-      statusCode: 200,
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(surveys),
-    };
-  };
+  return {
+     statusCode: 200,
+     headers: {
+       "Content-Type": "application/json",
+     },
+     body: JSON.stringify(surveys),
+   };
+};
   
-  module.exports.handler = async (event, context) => {
+module.exports.handler = async (event, context) => {
     // otherwise the connection will never complete, since
     // we keep the DB connection alive
     context.callbackWaitsForEmptyEventLoop = false;
   
     const db = await connectToDatabase(MONGODB_URI);
     return queryDatabase(db);
-  };
+};
 
-  const pushToDatabase = async (db, data, collection) => {
+const pushToDatabase = async (db, data, collection) => {
     
     if (collection == "surveys") {
       const collect = {
@@ -64,9 +64,9 @@ const queryDatabase = async (db) => {
     } else {
       return { statusCode: 422 };
     }
-  };
+};
   
-  module.exports.handler = async (event, context) => {
+module.exports.handler = async (event, context) => {
     // otherwise the connection will never complete, since
     // we keep the DB connection alive
     context.callbackWaitsForEmptyEventLoop = false;
@@ -75,10 +75,11 @@ const queryDatabase = async (db) => {
   
     switch (event.httpMethod) {
       case "GET":
-        return queryDatabase(db);
+        return { statusCode: 400 };
+        //return queryDatabase(db);
       case "POST":
         return pushToDatabase(db, JSON.parse(event.body), "surveys");
       default:
         return { statusCode: 400 };
     }
-  };
+};
