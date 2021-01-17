@@ -21,9 +21,11 @@ const connectToDatabase = async (uri) => {
   return cachedDb;
 };
 
-const queryDatabase = async (db , hash) => {
+const queryDatabase = async (db , hash, limit) => {
 
-  const surveys = await db.collection("surveys").find( hash?{hash}:'').toArray();
+  // se não enviar hash  retorna todos os registros
+
+  const surveys = await db.collection("surveys").find( hash?{hash}:'').limit(limit).toArray();
 
   return {
      statusCode: 200,
@@ -89,12 +91,13 @@ module.exports.handler = async (event, context) => {
   
     const db = await connectToDatabase(MONGODB_URI);
     const hash = event.headers['hash'] ? event.headers.hash : '';
+    const limit = event.headers['limit'] ? event.headers.limit : 100 ;
     const collection = event.headers['collection'] ? event.headers.collection : '';
     const inputdata = event.headers['inputdata'] ? event.headers.inputdata : '';
   
     switch (event.httpMethod) {
       case "GET":
-        return queryDatabase(db, hash);
+        return queryDatabase(db, hash, limit);
       case "POST":
         return pushToDatabase(db, JSON.parse(event.body), collection);
       case "PUT":
