@@ -17,7 +17,7 @@ const connectToDatabase = async (uri) => {
   });
 
   cachedDb = client.db(DB_NAME);
-
+ 
   return cachedDb;
 };
 
@@ -25,7 +25,7 @@ const queryDatabase = async (db , hash, limit) => {
 
   // se não enviar hash  retorna todos os registros
 
-  const surveys = await db.collection("surveys").find( hash?{hash}:'').limit(limit).toArray();
+  const surveys = await db.collection("surveys").find( hash?{hash}:'').limit( parseInt(limit) ).toArray();
 
   return {
      statusCode: 200,
