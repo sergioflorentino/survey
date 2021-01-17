@@ -1,6 +1,7 @@
 // ./lambda_functions/pokemon.js
 
-const MongoClient = require("mongodb").MongoClient;
+import {connectToDatabase} from './helpers';
+
 
 const MONGODB_URI = process.env.MONGODB_URI;
 const DB_NAME = 'formboiz';
