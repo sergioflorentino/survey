@@ -1,6 +1,6 @@
 // ./lambda_functions/pokemon.js
 
-import {connectToDatabase} from './helpers';
+const connectToDatabase = require('./helpers');
 
 const queryDatabase = async (db , hash, limit) => {
 
@@ -65,7 +65,7 @@ const editDatabase = async (db, param) => {
 };
 
 
-export default function Main(event, context) {
+const handler = function (event, context) {
     // otherwise the connection will never complete, since
     // we keep the DB connection alive
     context.callbackWaitsForEmptyEventLoop = false;
@@ -87,3 +87,5 @@ export default function Main(event, context) {
         return { statusCode: 400 };
     }
 };
+
+exports.handler = handler;
