@@ -1,6 +1,6 @@
 // ./lambda_functions/pokemon.js
 
-const connectToDatabase = require('./helpers');
+const connectToDatabase =  require('./helpers');
 
 const queryDatabase = async (db , hash, limit) => {
 
@@ -65,7 +65,7 @@ const editDatabase = async (db, param) => {
 };
 
 
-const handler = function (event, context) {
+const handler = async function (event, context) {
     // otherwise the connection will never complete, since
     // we keep the DB connection alive
     context.callbackWaitsForEmptyEventLoop = false;
