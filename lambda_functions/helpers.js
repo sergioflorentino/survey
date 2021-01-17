@@ -1,5 +1,8 @@
 
 const MongoClient = require("mongodb").MongoClient;
+const MONGODB_URI = process.env.MONGODB_URI;
+const DB_NAME = 'formboiz';
+let cachedDb = null;
 
 export const connectToDatabase = async (uri) => {
   // we can cache the access to our database to speed things up a bit

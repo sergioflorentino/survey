@@ -1,25 +1,6 @@
 // ./lambda_functions/pokemon.js
 
-import {connectToDatabase} from './helpers';
-
-const MONGODB_URI = process.env.MONGODB_URI;
-const DB_NAME = 'formboiz';
-
-let cachedDb = null;
-
-const connectToDatabase = async (uri) => {
-  // we can cache the access to our database to speed things up a bit
-  // (this is the only thing that is safe to cache here)
-  if (cachedDb) return cachedDb;
-
-  const client = await MongoClient.connect(uri, {
-    useUnifiedTopology: true,
-  });
-
-  cachedDb = client.db(DB_NAME);
- 
-  return cachedDb;
-};
+const connectToDatabase = require('./helpers');
 
 const queryDatabase = async (db , hash, limit) => {
 
