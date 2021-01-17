@@ -1,6 +1,6 @@
 // ./lambda_functions/pokemon.js
 
-const connectToDatabase = require('./helpers');
+import {connectToDatabase} from './helpers';
 
 const queryDatabase = async (db , hash, limit) => {
 
