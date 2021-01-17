@@ -65,7 +65,7 @@ const editDatabase = async (db, param) => {
 };
 
 
-module.exports.handler = async (event, context) => {
+export default function Main(event, context) {
     // otherwise the connection will never complete, since
     // we keep the DB connection alive
     context.callbackWaitsForEmptyEventLoop = false;
