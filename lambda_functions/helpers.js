@@ -18,4 +18,4 @@ const connectToDatabase = async (uri) => {
   return cachedDb;
 };
 
-export {connectToDatabase};
+module.exports = {connectToDatabase};
