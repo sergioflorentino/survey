@@ -69,7 +69,8 @@ const handler = async function (event, context) {
     // otherwise the connection will never complete, since
     // we keep the DB connection alive
     context.callbackWaitsForEmptyEventLoop = false;
-  
+    const MONGODB_URI = process.env.MONGODB_URI;
+      
     const db = await connectToDatabase(MONGODB_URI);
     const hash = event.headers['hash'] ? event.headers.hash : '';
     const limit = event.headers['limit'] ? event.headers.limit : 100 ;
